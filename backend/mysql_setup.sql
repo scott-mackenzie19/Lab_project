@@ -1,5 +1,7 @@
+DROP DATABASE IF EXISTS db;
+
 -- create database db
-CREATE DATABASE db;
+CREATE DATABASE IF NOT EXISTS db;
 
 -- use newly create database
 USE db;
@@ -14,5 +16,3 @@ CREATE TABLE `db`.`test_table` (
 
 -- insert sample entry
 INSERT INTO `db`.`test_table` (`value`) VALUES ('Sample Value');
-
-
