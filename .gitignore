@@ -1,1 +1,4 @@
 .DS_Store
+backend/env
+.idea
+node_modules
