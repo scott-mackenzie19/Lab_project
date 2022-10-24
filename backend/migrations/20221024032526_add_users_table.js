@@ -6,7 +6,7 @@ exports.up = function(knex) {
   
     return knex.schema.createTable('users', (table) => {
         table.string('username');
-        table.string('password');//.notNullable();
+        table.string('password').notNullable();
         table.string('Zipcode');
         table.boolean('anon');
         table.integer('age');

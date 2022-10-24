@@ -1,3 +1,7 @@
+//console.log(__dirname+'/env')
+require('dotenv').config({path:__dirname+'/env'})
+//console.log(process.env.MYSQL_CLOUD_HOST)
+//console.log(process.env)
 const express = require('express');
 const userRoutes = require('./routes/user');
 const { createModelsMiddleware  } = require('./middleware/model-middleware' );
@@ -11,6 +15,7 @@ app.get('/health', (request, response, next) => {
    next();
 });
 app.use('/users', userRoutes);
+// app.use('/editprofile', editprofileRoutes)
 app.listen(port, () => {
    console.log(`This app is listening on port  ${port}`);
 });
