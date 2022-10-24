@@ -1,5 +1,5 @@
 //console.log(__dirname+'/env')
-require('dotenv').config({path:__dirname+'/env'})
+require('dotenv').config({path:__dirname+'/.env'})
 //console.log(process.env.MYSQL_CLOUD_HOST)
 //console.log(process.env)
 const express = require('express');
