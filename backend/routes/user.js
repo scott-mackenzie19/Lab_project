@@ -40,6 +40,8 @@ router.post('/', async (req, res, next) => {
    // count = 2;
    // console.log(count)
    try{
+
+      // if (req.body.username !== ""){}
       const createUser = await req.models.user.createUser(req.body.username, req.body.password);
       res.status(201).json("User has been successfully created");
    }

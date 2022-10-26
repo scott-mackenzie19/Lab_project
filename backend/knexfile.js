@@ -3,12 +3,12 @@ module.exports = {
       client: 'mysql',
       debug: true,
       connection: {
-        host : process.env.MYSQL_CLOUD_HOST, //'database-2.csfeg9lgj8v6.us-east-2.rds.amazonaws.com', //'127.0.0.1',
-        port : process.env.MYSQL_PORT, // 3306,
-        user : process.env.MYSQL_CLOUD_USER, // 'admin',
-        password : process.env.MYSQL_CLOUD_PASS, //'cs3345!group2',
+        host : process.env.MYSQL_CLOUD_HOST,
+        port : process.env.MYSQL_PORT,
+        user : process.env.MYSQL_CLOUD_USER,
+        password : process.env.MYSQL_CLOUD_PASS,
         insecureAuth: true,
-        database : process.env.MYSQL_DB // 'db'
+        database : process.env.MYSQL_DB
       }
     }
    };
