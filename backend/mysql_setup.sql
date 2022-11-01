@@ -1,3 +1,4 @@
+-- Active: 1666570329013@@database-2.csfeg9lgj8v6.us-east-2.rds.amazonaws.com@3306
 DROP DATABASE IF EXISTS db;
 
 -- create database db

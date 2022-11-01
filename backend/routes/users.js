@@ -26,6 +26,8 @@ router.get('/', async (req, res, next) => {
 //       next();
 //    } 
 //    else {
+
+   // if (req.body.feed == "home"){}
    const allUsers = await req.models.user.fetchAllUsers();
    res.json(allUsers);
    next();
