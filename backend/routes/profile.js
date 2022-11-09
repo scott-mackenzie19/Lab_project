@@ -7,6 +7,32 @@ const bodyParser = require('body-parser');
 const e = require('express');
 router.use(bodyParser.json());
 
+
+router.get('/:username', async (req, res, next) => {
+
+    const { username } = req.params;
+
+    try {
+
+        const result = await req.models.user.findUserByName(username);
+  
+        if (result.length === 0){
+           res.status(500).json("User not found");
+        }
+        else{
+           const user = result[0];
+           delete user.password;
+           res.status(201).json(user);
+        }
+    } 
+    catch (err) {
+    console.error('Failed to load current user:' , err);
+    res.status(500).json({ message: err.toString() });
+    }
+    
+    next();
+});
+
 router.get('/:username/following', async (req, res, next) => {
 
     const { username } = req.params;
