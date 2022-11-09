@@ -15,6 +15,11 @@ exports.up = function (knex) {
         table.dateTime('time').notNullable();
         table.integer('likes').defaultTo(0);
         table.boolean('agerestrict').defaultTo(false);
+        table.boolean('private_event').notNullable().defaultTo(false);
+        table.boolean('close_friend').notNullable().defaultTo(false);
+        // public event : anyone you're not friedns with
+        // or private event : friends or close-friends only
+        // close friend : close friends only are allowed
         table.primary('eventid');
         table.foreign('userID').references('username').inTable('users');
     });
