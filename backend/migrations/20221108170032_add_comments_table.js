@@ -3,11 +3,11 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-
-    return knex.schema.createTable('ratings', (table) => {
+  
+    return knex.schema.createTable('comments', (table) => {
         table.foreign('userID').references('username').inTable('users');
-        table.string('ratedID');
-        table.integer('rating');
+        table.string('eventID').references('eventID').inTable('events');
+        table.string('comment');
     });
 
 };
@@ -17,7 +17,7 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-
-    return knex.schema.dropTable('ratings');
+  
+    return knex.schema.dropTable('comments');
 
 };
