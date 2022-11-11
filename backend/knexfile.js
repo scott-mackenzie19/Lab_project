@@ -1,5 +1,4 @@
 require('dotenv').config({path:__dirname+'/.env'})
-
 module.exports = {
     development: {
       client: 'mysql',

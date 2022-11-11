@@ -8,6 +8,7 @@ const usersRoutes = require('./routes/users');
 const sessionRoutes = require('./routes/session');
 const registerRoutes  = require('./routes/register');
 const profileRoutes  = require('./routes/profile');
+const commentsRoutes  = require('./routes/comments' ); // check
 const { authenticateJWT , authenticateWithClaims  } = require('./middleware/auth' );
 const { createModelsMiddleware  } = require('./middleware/model-middleware' );
 const app = express();
@@ -23,8 +24,8 @@ app.get('/health', (request, response, next) => {
 app.use('/session', sessionRoutes); // used to log in
 app.use('/user', authenticateJWT , usersRoutes); // can be accessed after logging in
 app.use('/register', registerRoutes ); // can create a user
-// app.use('/feed')
 app.use('/profile', authenticateJWT, profileRoutes)
+app.use('/comments', authenticateJWT, commentsRoutes ); // nested in events?
 
 app.listen(port, () => {
    console.log(`This app is listening on port  ${port}`);
