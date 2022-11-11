@@ -32,14 +32,26 @@ router.get('/', async (req, res, next) => {
         if (type === "home") {
             console.log(userID, type)
             const result = await req.models.event.fetchHomeFeedEvents(userID);
-            res.status(200).json(result)
+
+            if (result.length === 0){
+                res.status(200).json(`There are no home events for ${userID}`);
+            }
+            else{
+                res.status(200).json(result);
+            }
         }
         else if (type === "discover") {
             const result = await req.models.event.fetchDiscoverFeedEvents(userID);
-            res.status(200).json(result)
+            // console.log(result)
+            if (result.length === 0){
+                res.status(200).json(`There are no discover events for ${userID}`);
+            }
+            else{
+                res.status(200).json(result);
+            }
         }
         else {
-            error = 0
+            res.status(500).json({ message: "Events being asked for are neither home nor discover" })
         }
     } catch (err) {
         console.error(err)
