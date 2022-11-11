@@ -1,0 +1,73 @@
+* {
+    font-family: sans-serif;
+    text-align: center;
+    box-sizing: border-box;
+    color: gainsboro;
+    position: relative;
+    background-color: darkgray;
+  }
+  div {
+    height: 100%;
+  }
+  
+  Button {
+    margin-top: 3rem;
+    width: 90%;
+    padding: 0.8em;
+    border-radius: 3rem;
+    margin-left: 3%;
+    margin-right: 3%;
+    cursor: pointer;
+    color: black;
+    background-color: gainsboro;
+  }
+  
+  Form {
+    padding: 5em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    width: 90%;
+    border-color: black;
+    border-width: 10px;
+    background-color: darkslategray;
+    border-radius: 0.5rem;
+  }
+  .a {
+    background-color: darkslategrey;
+    margin-top: 0%;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+  }
+  .form-control {
+    background-color: gainsboro;
+    border-radius: 0.8rem;
+    color: black;
+  }
+  .c {
+    background-color: inherit;
+    display: block;
+    margin: auto;
+  }
+  .d {
+    background-color: inherit;
+    font-size: small;
+    display: block;
+    cursor: default;
+    margin: auto;
+    margin-top: 1rem;
+  }
+  
+  .e {
+    background-color: inherit;
+    font-size: medium;
+    text-decoration: underline;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    margin-top: 1rem;
+  }
+  
+  .e:hover {
+    color: midnightblue;
+  }
