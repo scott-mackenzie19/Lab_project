@@ -13,7 +13,7 @@ router.get('/:username/events', async (req, res, next) => {
 
     try {
         // const events = await db('events').where({ userID: username })
-        const result = await req.models.events.fetchEventsByUser(username);
+        const result = await req.models.event.fetchEventsByUser(username);
 
         res.status(200).json(result)
     } catch (err) {
@@ -25,22 +25,24 @@ router.get('/:username/events', async (req, res, next) => {
 
 // home feed events = events of friends
 router.get('/', async (req, res, next) => {
-    const username = req.params.username;
-    const type = req.params.type;
+    const userID = req.body.username;
+    const type = req.body.type;
 
     try {
         if (type === "home") {
-            const result = await req.models.events.fetchHomeFeed(username);
+            console.log(userID, type)
+            const result = await req.models.event.fetchHomeFeedEvents(userID);
             res.status(200).json(result)
         }
         else if (type === "discover") {
-            const result = await req.models.events.fetchDiscoverFeed(username);
+            const result = await req.models.event.fetchDiscoverFeedEvents(userID);
             res.status(200).json(result)
         }
         else {
             error = 0
         }
     } catch (err) {
+        console.error(err)
         res.status(500).json({ message: "can't get user events" })
     }
 
@@ -48,22 +50,24 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-    const title = req.params.title;
-    const description = req.params.description;
-    const zipcode = req.params.zipcode;
-    const address = req.params.address;
-    const time = req.params.time;
-    const agerestrict = req.params.agerestrict;
-    const private = req.params.private;
-    const close = req.params.close;
+    const userID = req.body.username;
+    const title = req.body.title;
+    const description = req.body.description;
+    const zipcode = req.body.zipcode;
+    const address = req.body.address;
+    const time = req.body.time;
+    const agerestrict = req.body.agerestrict;
+    const private = req.body.private;
+    const close = req.body.close;
 
     try {
         // const events = await db('events').where({ userID: username })
-        const result = await req.models.events.createEvent(title, description, zipcode, address, time, agerestrict, private, close);
+        const result = await req.models.event.createEvent(userID, title, description, zipcode, address, time, agerestrict, private, close);
 
         res.status(200).json(result)
     } catch (err) {
-        res.status(500).json({ message: "can't create event" })
+        console.error(err)
+        res.status(500).json({ message: "can't create event", err})
     }
 
     next();

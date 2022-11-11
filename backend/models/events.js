@@ -33,15 +33,15 @@ const fetchEventsByUser = async (name) => {
     return results;
 }
 
-const createEvent = async (title, description, zipcode, address, time, agerestrict, private, close) => {
-    const query = knex(EVENT_TABLE).insert({
-        title: title, description: description, Zipcode: zipcode, address: address,
-        time: time, agerestriction: agerestrict, private_event: private, close_friend: close
+const createEvent = async (userID, title, description, zipcode, address, time, agerestrict, private, close) => {
+    const query = await knex(EVENT_TABLE).insert({
+        userID: userID, title: title, description: description, Zipcode: zipcode, address: address,
+        time: time, agerestrict: agerestrict, private_event: private, close_friend: close
         //date.time
     });
-    const results = await query;
+    // const results = await query;
     // console.log(results);
-    return results;
+    return query;
 }
 
 // find user's friends' events
@@ -53,12 +53,8 @@ const fetchHomeFeedEvents = async (userID) => {
 
 
 
-    const query = knex.select('*').from(EVENT_TABLE).join('friends', function () {
-        this.on(function () {
-            this.on('friends.followedID', '=', 'events.userID')
-            this.andOn('friends.userID', '=', userID)
-        })
-    })
+    const query = knex.select('*').from(EVENT_TABLE).leftJoin('friends', function () {
+                  this.on('events.userID', '=', 'friends.followedID').onIn('friends.userID', [userID])})
     // CHECK FOR PRIVATE EVENTS AND CLOSE FRIENDS
 
 
@@ -72,7 +68,8 @@ const fetchDiscoverFeedEvents = async (userID) => {
             this.on('friends.followedID', '=', 'events.userID')
             this.andOn('friends.userID', '=', userID)
         })
-    }
+    })
+}
 
 const deleteEvent = async (title, zipcode) => {
         const query = knex(EVENT_TABLE).delete().where({ title: title, Zipcode: zipcode });
@@ -80,12 +77,12 @@ const deleteEvent = async (title, zipcode) => {
         return results;
     }
 
-    module.exports = {
-        fetchAllEvents,
-        fetchEventsByTitle,
-        fetchEventsByID,
-        fetchEventsByUser,
-        fetchHomeFeedEvents,
-        createEvent,
-        deleteEvent
-    }
+module.exports = {
+    fetchAllEvents,
+    fetchEventsByTitle,
+    fetchEventsByID,
+    fetchEventsByUser,
+    fetchHomeFeedEvents,
+    createEvent,
+    deleteEvent
+}
