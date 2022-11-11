@@ -12,7 +12,7 @@ router.post('/', async (req, res, next) => {
        const body = req.body;
     //    console.log(body);
     //    console.log(req.models);
-       const result = await req.models.user.createComment(body.comments);
+       const result = await req.models.comments.createComment(body.comments, body.userID);
        res.status(201).json(result);
     } catch (err) {
        console.error('Failed to create new comment:', err);

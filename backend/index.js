@@ -23,7 +23,7 @@ app.get('/health', (request, response, next) => {
 app.use('/session', sessionRoutes); // used to log in
 app.use('/user', authenticateJWT , usersRoutes); // can be accessed after logging in
 app.use('/register', registerRoutes ); // can create a user
-app.use('/comments', registerRoutes ); // nested in events?
+app.use('/comments', commentsRoutes ); // nested in events?
 
 app.listen(port, () => {
    console.log(`This app is listening on port  ${port}`);

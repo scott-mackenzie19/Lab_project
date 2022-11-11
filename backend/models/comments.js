@@ -10,11 +10,11 @@ const fetchAllComments = async (comment, userID/*, eventID*/) => {
     return results;
 }
 
-// const updateComment = async (comment, userID, eventID) => {
-//     const query = knex(COMMENTS_TABLE).update({comment}).where({userID,eventID});
-//     const results = await query;
-//     return results;
-// }
+const updateComment = async (comment, userID/*, eventID*/) => {
+    const query = knex(COMMENTS_TABLE).update({comment}).where({userID,eventID});
+    const results = await query;
+    return results;
+}
 
 // handle post request and store comment 
 const createComment = async (comment, userID/*, eventID*/) => {
