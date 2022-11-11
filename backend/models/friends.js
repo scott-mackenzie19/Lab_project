@@ -16,7 +16,16 @@ const fetchFollowers = async (followedID) => {
     return results;
 }
 
+const fetchCloseFriends = async (userID) => {
+    const query = knex(FRIEND_TABLE).select('followedID').select('close_friend').where({userID, close_friend:true});
+    const results = await query;
+    // console.log(results.length)
+    // console.log(results);
+    return results;
+}
+
 module.exports = {
     fetchFollowing,
-    fetchFollowers
+    fetchFollowers,
+    fetchCloseFriends
 }

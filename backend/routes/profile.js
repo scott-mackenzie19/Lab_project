@@ -72,3 +72,23 @@ router.get('/:username/followers', async (req, res, next) => {
     next();
 
 });
+
+router.get('/:username/close-friends', async (req, res, next) => {
+
+    const { username } = req.params;
+
+    try {
+
+        // get from friends model, the users who follow { username }
+        const result = await req.models.friend.fetchCloseFriends(username);
+        res.status(200).json(result);
+
+    }
+
+    catch (err) {
+        console.error('Failed to locate close friends:', err);
+        res.status(500).json({ message: err.toString() });
+    }
+    next();
+
+});

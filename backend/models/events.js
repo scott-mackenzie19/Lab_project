@@ -55,6 +55,8 @@ const fetchHomeFeedEvents = async (userID) => {
 
     const query = knex.select('*').from(EVENT_TABLE).leftJoin('friends', function () {
                   this.on('events.userID', '=', 'friends.followedID').onIn('friends.userID', [userID])})
+
+                  // andOn.('events.min', '<=', 'users.age')
     // CHECK FOR PRIVATE EVENTS AND CLOSE FRIENDS
 
 
