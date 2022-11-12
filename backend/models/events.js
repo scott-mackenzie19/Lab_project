@@ -67,7 +67,6 @@ const fetchHomeFeedEvents = async (userID) => {
     // Finding all events hosted by who the user is following
     const subquery1 = knex(EVENT_TABLE).where('userID', 'in', subquery).select('userID');
     const subquery2 = knex(EVENT_TABLE).where('userID', 'in', subquery).select('eventID');
-
     // returning mutual friends
     const subquery3 = knex(FRIEND_TABLE).where('userID', 'in', subquery1).andWhere('followedID', userID).select('userID');
     // event ID's of events user cannot attend (event host is now following the user)

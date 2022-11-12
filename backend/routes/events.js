@@ -51,7 +51,15 @@ router.get('/', async (req, res, next) => {
             }
         }
         else {
-            res.status(500).json({ message: "Events being asked for are neither home nor discover" })
+
+            const result = await req.models.event.fetchAllEvents();
+            // console.log(result)
+            if (result.length === 0){
+                res.status(200).json(`There are no events available`);
+            }
+            else{
+                res.status(200).json(result);
+            }
         }
     } catch (err) {
         console.error(err)
