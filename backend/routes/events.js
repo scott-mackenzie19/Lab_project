@@ -32,14 +32,34 @@ router.get('/', async (req, res, next) => {
         if (type === "home") {
             console.log(userID, type)
             const result = await req.models.event.fetchHomeFeedEvents(userID);
-            res.status(200).json(result)
+
+            if (result.length === 0){
+                res.status(200).json(`There are no home events for ${userID}`);
+            }
+            else{
+                res.status(200).json(result);
+            }
         }
         else if (type === "discover") {
             const result = await req.models.event.fetchDiscoverFeedEvents(userID);
-            res.status(200).json(result)
+            // console.log(result)
+            if (result.length === 0){
+                res.status(200).json(`There are no discover events for ${userID}`);
+            }
+            else{
+                res.status(200).json(result);
+            }
         }
         else {
-            error = 0
+
+            const result = await req.models.event.fetchAllEvents();
+            // console.log(result)
+            if (result.length === 0){
+                res.status(200).json(`There are no events available`);
+            }
+            else{
+                res.status(200).json(result);
+            }
         }
     } catch (err) {
         console.error(err)
@@ -56,13 +76,14 @@ router.post('/', async (req, res, next) => {
     const zipcode = req.body.zipcode;
     const address = req.body.address;
     const time = req.body.time;
+    const date = req.body.date;
     const agerestrict = req.body.agerestrict;
     const private = req.body.private;
     const close = req.body.close;
 
     try {
         // const events = await db('events').where({ userID: username })
-        const result = await req.models.event.createEvent(userID, title, description, zipcode, address, time, agerestrict, private, close);
+        const result = await req.models.event.createEvent(userID, title, description, zipcode, address, time, date, agerestrict, private, close);
 
         res.status(200).json(result)
     } catch (err) {

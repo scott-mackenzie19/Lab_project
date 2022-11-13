@@ -5,14 +5,15 @@
 exports.up = function(knex) {
   
     return knex.schema.createTable('users', (table) => {
-        table.string('username');
+        table.string('username').notNullable();
         table.string('password').notNullable();
-        table.string('Zipcode');
+        table.string('zipcode').notNullable();
+        table.string('bio');
         table.boolean('anon');
-        table.integer('age');
+        table.integer('age').notNullable();
         table.string('pfp');
         table.integer('rating');
-        table.primary('username')
+        table.primary('username');
     });
 
 };
