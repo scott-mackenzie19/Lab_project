@@ -7,7 +7,7 @@ import  Form  from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import axios from "axios";
-axios.defaults.baseURL='http://ec2-52-14-129-198.us-east-2.compute.amazonaws.com/'
+axios.defaults.baseURL='http://ec2-52-14-129-198.us-east-2.compute.amazonaws.com:3000'
 
 
 export default function Login() {
