@@ -5,9 +5,12 @@
 exports.up = function(knex) {
   
     return knex.schema.createTable('comments', (table) => {
-        table.foreign('userID').references('username').inTable('users');
-        //table.string('eventID').references('eventID').inTable('events');
+        table.string('userID');
+        table.integer('eventID').unsigned();
         table.string('comment');
+        table.primary(['userID', 'eventID', 'comment']);
+        table.foreign('userID').references('username').inTable('users');
+        table.foreign('eventID').references('eventID').inTable('events');
     });
 
 };
