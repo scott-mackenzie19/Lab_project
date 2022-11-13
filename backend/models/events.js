@@ -33,10 +33,10 @@ const fetchEventsByUser = async (name) => {
     return results;
 }
 
-const createEvent = async (userID, title, description, zipcode, address, time, agerestrict, private, close) => {
+const createEvent = async (userID, title, description, zipcode, address, time, date, agerestrict, private, close) => {
     const query = await knex(EVENT_TABLE).insert({
-        userID: userID, title: title, description: description, Zipcode: zipcode, address: address,
-        time: time, agerestrict: agerestrict, private_event: private, close_friend: close
+        userID: userID, title: title, description: description, zipcode: zipcode, address: address,
+        time: time, date:date, min_agerestrict: agerestrict, private_event: private, close_friend: close
         //date.time
     });
     // const results = await query;
@@ -45,7 +45,7 @@ const createEvent = async (userID, title, description, zipcode, address, time, a
 }
 
 // find user's friends' events
-const fetchHomeFeedEvents = async (userID) => {
+const fetchHomeFeedEvents = async (userID, minAge) => {
     // const query = await knex(FREIND_TABLE).select('followedID').where({ userID });
     // const events = await query.knex(EVENT_TABLE)
     //     .join('friends as f', 'f.userID', 'events.userID')

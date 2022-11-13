@@ -76,13 +76,14 @@ router.post('/', async (req, res, next) => {
     const zipcode = req.body.zipcode;
     const address = req.body.address;
     const time = req.body.time;
+    const date = req.body.date;
     const agerestrict = req.body.agerestrict;
     const private = req.body.private;
     const close = req.body.close;
 
     try {
         // const events = await db('events').where({ userID: username })
-        const result = await req.models.event.createEvent(userID, title, description, zipcode, address, time, agerestrict, private, close);
+        const result = await req.models.event.createEvent(userID, title, description, zipcode, address, time, date, agerestrict, private, close);
 
         res.status(200).json(result)
     } catch (err) {

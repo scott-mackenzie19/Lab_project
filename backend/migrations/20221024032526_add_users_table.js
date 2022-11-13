@@ -10,7 +10,7 @@ exports.up = function(knex) {
         table.string('zipcode').notNullable();
         table.string('bio');
         table.boolean('anon');
-        table.integer('age');
+        table.integer('age').notNullable();
         table.string('pfp');
         table.integer('rating');
         table.primary('username');

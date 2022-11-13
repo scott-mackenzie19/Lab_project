@@ -10,12 +10,12 @@ exports.up = function (knex) {
         table.string('userID').notNullable();
         table.string('title').notNullable();
         table.string('description').notNullable().defaultTo('Enter description.');
-        table.string('Zipcode').notNullable();
+        table.string('zipcode').notNullable();
         table.string('address').notNullable();
         table.date('date').notNullable();
         table.time('time').notNullable();
-        table.integer('likes').defaultTo(0);
-        table.integer('min_agerestrict');
+        table.integer('likes').notNullable().defaultTo(0);
+        table.integer('min_agerestrict').notNullable().defaultTo(0);
         table.boolean('private_event').notNullable().defaultTo(false);
         table.boolean('close_friend').notNullable().defaultTo(false);
         // public event : anyone you're not friedns with
