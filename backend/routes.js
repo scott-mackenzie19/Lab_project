@@ -7,7 +7,7 @@ module.exports = function routes(app, logger) {
   });
 
   // POST /reset
-  app.post('/reset', (req, res) => {
+  app.post('/reset', async (req, res) => {
     // obtain a connection from our pool of connections
     pool.getConnection(function (err, connection){
       if (err){
