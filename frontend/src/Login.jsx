@@ -34,7 +34,7 @@ export default function Login() {
       console.log(body)
       console.log(axios.defaults.baseURL);
       axios.post(`${axios.defaults.baseURL}`, body)
-      .then(x =>resolve(x.data))
+      .then(x => {console.log(x)})
       .catch(x => {
           alert(x);
           reject(x);
