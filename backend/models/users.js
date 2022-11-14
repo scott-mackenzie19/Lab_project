@@ -17,6 +17,7 @@ const fetchAllUsers = async () => {
 const findUserByName = async (username) => {
     const query = knex(USER_TABLE).where({ username });
     const result = await query;
+    // console.log(result)
     return result;
 }
 

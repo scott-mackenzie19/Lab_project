@@ -45,7 +45,7 @@ const createEvent = async (userID, title, description, zipcode, address, time, d
 }
 
 // find user's friends' events
-const fetchHomeFeedEvents = async (userID, minAge) => {
+const fetchHomeFeedEvents = async (userInfo, zipcode_bool, date_filter, time_filter) => {
     // const query = await knex(FREIND_TABLE).select('followedID').where({ userID });
     // const events = await query.knex(EVENT_TABLE)
     //     .join('friends as f', 'f.userID', 'events.userID')
@@ -55,6 +55,11 @@ const fetchHomeFeedEvents = async (userID, minAge) => {
 
     // const query = knex.select('*').from(EVENT_TABLE).join('friends', function () {
     //               this.on('events.userID', '=', 'friends.followedID').onIn('friends.userID', [userID])})
+
+    const userID = userInfo.username;
+    const zipcode = userInfo.zipcode;
+    const age = userInfo.age;
+
 
     // Finding everyone the user is following
     const subquery = knex(FRIEND_TABLE).where({userID}).select('followedID');
@@ -80,9 +85,28 @@ const fetchHomeFeedEvents = async (userID, minAge) => {
     // const subquery3 = query1.select('eventID');
 
     // events that the user can attend
-    const query = knex(EVENT_TABLE).where('eventID', 'in', subquery2).andWhere('eventID', 'not in', subquery4).andWhere('eventID', 'not in', subquery6).orWhere('userID', '=', userID);
+    query = knex(EVENT_TABLE).where('eventID', 'in', subquery2).andWhere('eventID', 'not in', subquery4)
+                                   .andWhere('eventID', 'not in', subquery6).andWhere('min_agerestrict', '<=', age)
+                                   .orWhere('userID', '=', userID);
 
     //     const query = query1.where('*', 'not in', query2)
+
+    
+    // repeat processes for all filters
+    if (zipcode_bool){
+        query = knex(EVENT_TABLE).where('eventID', 'in', query.select('eventID')).andWhere('zipcode', '=', zipcode)
+    }
+    if (date_filter){
+        query = knex(EVENT_TABLE).where('eventID', 'in', query.select('eventID')).andWhere('date', '=', date_filter)
+    }
+    if (time_filter){
+        query = knex(EVENT_TABLE).where('eventID', 'in', query.select('eventID')).andWhere('time', '>=', time_filter)
+    }
+
+    // User enters a specific date and filter by that date. year/month/day
+    // Entered time is any time at or after 
+    // CHECK CurrDate function, make sure we can exlcude the ones of dates past.
+    // also check age
 
 
     // const query = knex.select('username').from(USER_TABLE).join(FRIEND_TABLE, function () {
