@@ -15,21 +15,21 @@ router.get('/:username', async (req, res, next) => {
     try {
 
         const result = await req.models.user.findUserByName(username);
-  
-        if (result.length === 0){
-           res.status(500).json("User not found");
+
+        if (result.length === 0) {
+            res.status(500).json("User not found");
         }
-        else{
-           const user = result[0];
-           delete user.password;
-           res.status(201).json(user);
+        else {
+            const user = result[0];
+            delete user.password;
+            res.status(201).json(user);
         }
-    } 
-    catch (err) {
-    console.error('Failed to load current user:' , err);
-    res.status(500).json({ message: err.toString() });
     }
-    
+    catch (err) {
+        console.error('Failed to load current user:', err);
+        res.status(500).json({ message: err.toString() });
+    }
+
     next();
 });
 
@@ -91,4 +91,59 @@ router.get('/:username/close-friends', async (req, res, next) => {
     }
     next();
 
+});
+
+
+router.put('/:username/edit', async (req, res, next) => {
+
+    const { username } = req.params;
+    const bio = req.body.bio;
+    const zipcode = req.body.zipcode;
+    const anon = req.body.anon;
+    const age = req.body.age;
+    // const password = req.body.password;
+
+    try {
+
+        // get from friends model, the users who follow { username }
+        const result = await req.models.user.updateUserInfo(username, bio, zipcode, anon, age);
+        res.status(200).json(result);
+
+    }
+
+    catch (err) {
+        console.error('Failed to update the user information:', err);
+        res.status(500).json({ message: err.toString() });
+    }
+    next();
+
+});
+
+router.put('/:username/change-password', async (req, res, next) => {
+
+    const { username } = req.params;
+    const previouspass = req.body.previouspass;
+    const newpass = req.body.newpass;
+
+    try {
+
+        const comp = await req.models.user.authenticateUser(username, previouspass);
+
+        if (comp === null) {
+            res.status(500).json('Failed to authenticate user');
+        }
+        // get from friends model, the users who follow { username }
+        else {
+            const result = await req.models.user.updateUserPass(username, previouspass, newpass);
+            res.status(200).json(result);
+
+        }
+
+    }
+
+    catch (err) {
+        console.error('Failed to update the user password:', err);
+        res.status(500).json({ message: err.toString() });
+    }
+    next();
 });
