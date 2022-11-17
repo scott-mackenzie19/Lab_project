@@ -23,12 +23,13 @@ const fetchEventsByID = async (event_id) => {
     return results;
 }
 
-const fetchEventsByUser = async (name) => {
+const fetchEventsByUser = async (userID) => {
     // const query = knex(USER_TABLE).where({ username: name });
-    const events = await knex(EVENT_TABLE)
-        .join('users as u', 'u.username', 'events.userID')
-        .select('events.eventID', 'u.username', 'events.title', 'events.description')
-        .where({ userID: name })
+    // const events = await knex(EVENT_TABLE)
+    //     .join('users as u', 'u.username', 'events.userID')
+    //     .select('events.eventID', 'u.username', 'events.title', 'events.description')
+    //     .where({ userID: name })
+    const events = await knex(EVENT_TABLE).where({userID})
     const results = await events;
     return results;
 }

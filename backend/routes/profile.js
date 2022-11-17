@@ -22,7 +22,10 @@ router.get('/:username', async (req, res, next) => {
         else {
             const user = result[0];
             delete user.password;
-            res.status(201).json(user);
+            const events = await req.models.event.fetchEventsByUser(username);
+            const following = await req.models.friend.fetchFollowing_withpfp(username);
+            // const following = following_result.followedID;
+            res.status(201).json({user, events, following});
         }
     }
     catch (err) {
