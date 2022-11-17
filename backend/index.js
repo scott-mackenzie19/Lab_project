@@ -8,7 +8,6 @@ const usersRoutes = require('./routes/users');
 const sessionRoutes = require('./routes/session');
 const registerRoutes  = require('./routes/register');
 const profileRoutes  = require('./routes/profile');
-const commentsRoutes  = require('./routes/comments' ); // check
 const eventRoutes = require('./routes/events');
 const { authenticateJWT , authenticateWithClaims  } = require('./middleware/auth' );
 const { createModelsMiddleware  } = require('./middleware/model-middleware' );

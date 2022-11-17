@@ -105,3 +105,37 @@ router.post('/', async (req, res, next) => {
     next();
 });
 
+// return event and comments for that eventID
+router.get('/:eventID', async (req, res, next) => {
+    const { eventID } = req.params;
+    
+    try {
+        // retrieve event under specified eventID
+        const result = await req.models.event.fetchAllEvents(eventID);
+        // retrieve comments under specified eventID
+        const result1 = await req.models.comments.fetchCommentsByEventID(eventID);
+        res.status(200).json(result,result1)
+    } catch (err) {
+        res.status(500).json({ message: "can't get comment with event id" })
+    }
+    
+
+    next();
+});
+
+router.post('/:eventID', async (req, res, next) => {
+    const { eventID } = req.params;
+    const userID = req.body.username;
+    const comment = req.body.comment;
+    
+    try {
+        // retrieve event under specified eventID
+        const result = await req.models.comments.createComment(userID, eventID, comment);
+        res.status(200).json(result)
+    } catch (err) {
+        res.status(500).json({ message: "can't post comment" })
+    }
+    
+
+    next();
+});
