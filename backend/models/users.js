@@ -14,9 +14,17 @@ const fetchAllUsers = async () => {
 //     return results;
 // }
 
+const updateUserInfo = async (username, bio, zipcode, anon, age) => {
+    const query = knex(USER_TABLE).update({ bio: bio, zipcode: zipcode, anon: anon, age: age }).where({ username });
+    const result = await query;
+    return result;
+}
+
+
 const findUserByName = async (username) => {
     const query = knex(USER_TABLE).where({ username });
     const result = await query;
+    // console.log(result)
     return result;
 }
 
@@ -36,12 +44,12 @@ const authenticateUser = async (username, password) => {
     return null;
 }
 
-const updateUserPass = async (username, password)  => {
+const updateUserPass = async (username, prevpassword, newpassword) => {
     // console.log(pass)
     // console.log(name)
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const query = knex(USER_TABLE).update({password:hashedPassword}).where({username});
+    const hashedPassword = await bcrypt.hash(newpassword, salt);
+    const query = knex(USER_TABLE).update({ password: hashedPassword }).where({ username });
     const results = await query;
     return results;
 }
@@ -49,13 +57,13 @@ const createUser = async (username, password, zipcode, age) => {
     const salt = await bcrypt.genSalt(10);
     // console.log(password, salt)
     const hashedPassword = await bcrypt.hash(password, salt);
-    const query = knex(USER_TABLE).insert({username, password:hashedPassword, zipcode, age});
+    const query = knex(USER_TABLE).insert({ username, password: hashedPassword, zipcode, age });
     const results = await query;
     // console.log(results);
     return results;
 }
 const deleteUser = async (username) => {
-    const query = knex(USER_TABLE).delete().where({username});
+    const query = knex(USER_TABLE).delete().where({ username });
     const results = await query;
     return results;
 }
@@ -67,5 +75,6 @@ module.exports = {
     authenticateUser,
     createUser,
     updateUserPass,
+    updateUserInfo,
     deleteUser
 }

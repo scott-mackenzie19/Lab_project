@@ -36,7 +36,7 @@ const fetchEventsByUser = async (name) => {
 const createEvent = async (userID, title, description, zipcode, address, time, date, agerestrict, private, close) => {
     const query = await knex(EVENT_TABLE).insert({
         userID: userID, title: title, description: description, zipcode: zipcode, address: address,
-        time: time, date:date, min_agerestrict: agerestrict, private_event: private, close_friend: close
+        time: time, date: date, min_agerestrict: agerestrict, private_event: private, close_friend: close
         //date.time
     });
     // const results = await query;
@@ -45,7 +45,7 @@ const createEvent = async (userID, title, description, zipcode, address, time, d
 }
 
 // find user's friends' events
-const fetchHomeFeedEvents = async (userID, minAge) => {
+const fetchHomeFeedEvents = async (userInfo, zipcode_bool, date_filter, time_filter) => {
     // const query = await knex(FREIND_TABLE).select('followedID').where({ userID });
     // const events = await query.knex(EVENT_TABLE)
     //     .join('friends as f', 'f.userID', 'events.userID')
@@ -56,8 +56,13 @@ const fetchHomeFeedEvents = async (userID, minAge) => {
     // const query = knex.select('*').from(EVENT_TABLE).join('friends', function () {
     //               this.on('events.userID', '=', 'friends.followedID').onIn('friends.userID', [userID])})
 
+    const userID = userInfo.username;
+    const zipcode = userInfo.zipcode;
+    const age = userInfo.age;
+
+
     // Finding everyone the user is following
-    const subquery = knex(FRIEND_TABLE).where({userID}).select('followedID');
+    const subquery = knex(FRIEND_TABLE).where({ userID }).select('followedID');
     // console.log("HI")
 
 
@@ -80,9 +85,28 @@ const fetchHomeFeedEvents = async (userID, minAge) => {
     // const subquery3 = query1.select('eventID');
 
     // events that the user can attend
-    const query = knex(EVENT_TABLE).where('eventID', 'in', subquery2).andWhere('eventID', 'not in', subquery4).andWhere('eventID', 'not in', subquery6).orWhere('userID', '=', userID);
+    query = knex(EVENT_TABLE).where('eventID', 'in', subquery2).andWhere('eventID', 'not in', subquery4)
+        .andWhere('eventID', 'not in', subquery6).andWhere('min_agerestrict', '<=', age)
+        .orWhere('userID', '=', userID);
 
     //     const query = query1.where('*', 'not in', query2)
+
+
+    // repeat processes for all filters
+    if (zipcode_bool) {
+        query = knex(EVENT_TABLE).where('eventID', 'in', query.select('eventID')).andWhere('zipcode', '=', zipcode)
+    }
+    if (date_filter) {
+        query = knex(EVENT_TABLE).where('eventID', 'in', query.select('eventID')).andWhere('date', '=', date_filter)
+    }
+    if (time_filter) {
+        query = knex(EVENT_TABLE).where('eventID', 'in', query.select('eventID')).andWhere('time', '>=', time_filter)
+    }
+
+    // User enters a specific date and filter by that date. year/month/day
+    // Entered time is any time at or after 
+    // CHECK CurrDate function, make sure we can exlcude the ones of dates past.
+    // also check age
 
 
     // const query = knex.select('username').from(USER_TABLE).join(FRIEND_TABLE, function () {
@@ -92,7 +116,7 @@ const fetchHomeFeedEvents = async (userID, minAge) => {
     // const query = knex.select('*').from(EVENT_TABLE).join(FRIEND_TABLE, function () {
     //               this.on('events.userID', '!=', 'friends.followedID')
     //               .onIn('friends.userID', userID)})
-                  // andOn.('events.min', '<=', 'users.age')
+    // andOn.('events.min', '<=', 'users.age')
     // CHECK FOR PRIVATE EVENTS AND CLOSE FRIENDS
 
 
@@ -107,20 +131,20 @@ const fetchDiscoverFeedEvents = async (userID) => {
     // const query = knex.select('*').from(EVENT_TABLE).join('friends', function () {
     //     this.on('events.userID', '<>', 'friends.followedID').onIn('friends.userID', [userID])})
 
-    const subquery = knex(FRIEND_TABLE).where({userID}).select('followedID');
+    const subquery = knex(FRIEND_TABLE).where({ userID }).select('followedID');
     const subquery2 = knex(USER_TABLE).where('username', 'not in', subquery).andWhere('username', '!=', userID).select('username');
     const query = knex(EVENT_TABLE).where('userID', 'in', subquery2).andWhere('private_event', false).andWhere('close_friend', false);
 
     const results = await query;
-    
+
     return results;
 }
 
 const deleteEvent = async (title, zipcode) => {
-        const query = knex(EVENT_TABLE).delete().where({ title: title, Zipcode: zipcode });
-        const results = await query;
-        return results;
-    }
+    const query = knex(EVENT_TABLE).delete().where({ title: title, zipcode: zipcode });
+    const results = await query;
+    return results;
+}
 
 module.exports = {
     fetchAllEvents,

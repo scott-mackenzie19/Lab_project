@@ -28,10 +28,21 @@ router.get('/', async (req, res, next) => {
     const userID = req.body.username;
     const type = req.body.type;
 
+    const user = await req.models.user.findUserByName(userID);
+    const userInfo = user[0]
+    delete userInfo.password;
+
+    // filters
+    // zipcode will be a bool, date and time will be in date and time format respectfully
+    const filter_zipcode_bool = req.body.filter_zipcode;
+    const filter_date = req.body.filter_date;
+    const filter_time = req.body.filter_time;
+
+
     try {
         if (type === "home") {
-            console.log(userID, type)
-            const result = await req.models.event.fetchHomeFeedEvents(userID);
+            // console.log(userInfo)
+            const result = await req.models.event.fetchHomeFeedEvents(userInfo, filter_zipcode_bool, filter_date, filter_time);
 
             if (result.length === 0){
                 res.status(200).json(`There are no home events for ${userID}`);
