@@ -47,6 +47,10 @@
     cursor: pointer;
 }
 
+.linkWrapper {
+    color: white;
+}
+
 .topbarIcons {
     display: flex;
 }

@@ -6,6 +6,7 @@ import {useState} from "react";
 export default function Post({post, id}) {
     const [like,setLike] = useState(post.like) 
     const [isLiked,setIsLiked] = useState(false);
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
     const likeHandler = ()=> {
         setLike(isLiked ? like-1: like+1)
@@ -17,7 +18,7 @@ export default function Post({post, id}) {
         <div className="postWrapper">
             <div className="postTop">
                 <div className="postTopLeft">
-                    <img className="postProfileImg" src={Users.filter((u)=>u.id === post.userId)[0].profilePicture} alt="" />
+                    <img className="postProfileImg" src={PF+Users.filter((u)=>u.id === post.userId)[0].profilePicture} alt="" />
                     <span className="postUsername">{Users.filter((u)=>u.id === post.userId)[0].username}</span>
                     <span className="postTime">{post.date}</span>
                 </div>
@@ -36,12 +37,12 @@ export default function Post({post, id}) {
                     <div className="postLocationText">{post.time}</div>
                 </div>
                 <span className="postText">{post.desc}</span>
-                <img className="postImg" src={post.photo} alt="" />
+                <img className="postImg" src={PF+post.photo} alt="" />
             </div>
             <div className="postBottom">
                 <div className="postBottomLeft">
-                    <img className="postLikeIcon" src="./assets/like.png" onClick={likeHandler} alt="" />
-                    <img className="postLikeIcon" src="./assets/heart.png" onClick={likeHandler} alt="" />
+                    <img className="postLikeIcon" src={PF+"like.png"} onClick={likeHandler} alt="" />
+                    <img className="postLikeIcon" src={PF+"heart.png"} onClick={likeHandler} alt="" />
                     <span className="postLikeCounter">{like} People like this</span>
                 </div>
                 <div className="postBottomRight">

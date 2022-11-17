@@ -6,6 +6,7 @@ import Feed from "../../components/feed/Feed"
 import { Users } from "../../dummyData"
 
 export default function Profile({id}) {
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     let user = Users[id];
     if (!user) {
         return (
@@ -21,8 +22,8 @@ export default function Profile({id}) {
                 <div className="profileRight">
                     <div className="profileRightTop">
                         <div className="profileCover">
-                            <img className="profileCoverImg" src="assets/post/post3.jpeg" alt="" />
-                            <img className="profileUserImg" src={user.profilePicture} alt="" />
+                            <img className="profileCoverImg" src={PF+"post/post3.jpeg"} alt="" />
+                            <img className="profileUserImg" src={PF+user.profilePicture} alt="" />
                         </div>
                     </div>
                     <div className="profileInfo">
