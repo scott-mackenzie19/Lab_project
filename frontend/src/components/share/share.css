@@ -1,0 +1,104 @@
+.share{
+    width: 95%;
+    border-radius: 10px;
+    
+}
+
+.shareWrapper {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: darkgray;
+    box-shadow: 0px 3px 5px 3px rgba(0,0,0,0.73);
+    -webkit-box-shadow: 0px 3px 5px 3px rgba(0,0,0,0.73);
+    -moz-box-shadow: 0px 3px 5px 3px rgba(0,0,0,0.73);
+}
+
+.shareProfileImg {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    object-fit:cover;
+    margin-right: 10px;
+}
+
+.shareTop {
+    display:block;
+    align-items: center;
+}
+
+.shareInput {
+    border: none;
+    width: 80%;
+    background-color: inherit;
+    margin-left: 1.5rem;
+}
+.shareInput:focus {
+    outline: none;
+}
+
+.shareTitle {
+    border: none;
+    background-color: inherit;
+    margin-bottom: .75rem;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.shareTitle:focus {
+    outline: none;
+}
+
+.shareHr {
+    margin: 20px;
+}
+
+.shareBottom {
+    width:auto;
+    align-items: center;
+}
+
+.shareOptions {
+    display:flex;
+    margin-left: 20px;
+}
+
+.shareOption {
+    display:flex;
+    align-items: center;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.shareIcon {
+    font-size: 18px;
+    margin-right: 3px;
+}
+
+.shareOptionText {
+    font: size 14px;
+    font-weight: 500;
+}
+
+.optionInput {
+    margin-left: 3rem;
+    background-color: aliceblue;
+}
+
+.option1 {
+    background-image: url("/public/assets/post/post1.jpg");
+}
+.shareButton {
+    border:none;
+    margin: 1rem;
+    padding: 7px;
+    border-radius: 10px;
+    background-color: rgb(52, 1, 52);
+    color: #f1f1f1;
+    font-weight: 500;
+    margin-right:1rem;
+    cursor: pointer;
+    align-items: center;
+}
+
