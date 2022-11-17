@@ -8,6 +8,16 @@ const fetchFollowing = async (userID) => {
     // console.log(results);
     return results;
 }
+
+const fetchFollowing_withpfp = async (userID) => {
+    const query = knex(FRIEND_TABLE).where({userID}).join('users as u', 'u.username', 'friends.followedID').select('followedID').select('pfp');
+    const results = await query;
+    // console.log(results.length)
+    //.where({userID})
+    // console.log(results);
+    return results;
+}
+
 const fetchFollowers = async (followedID) => {
     const query = knex(FRIEND_TABLE).select('userID').select('close_friend').where({followedID});
     const results = await query;
@@ -26,6 +36,7 @@ const fetchCloseFriends = async (userID) => {
 
 module.exports = {
     fetchFollowing,
+    fetchFollowing_withpfp,
     fetchFollowers,
     fetchCloseFriends
 }
