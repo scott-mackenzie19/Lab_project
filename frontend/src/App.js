@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Home from './pages/home/Home'
 import Profile from './pages/profile/Profile'
 import axios from 'axios';
+import Login from "./pages/login/Login"
 import {
   BrowserRouter as Router,
   Route,
@@ -83,7 +84,7 @@ export default function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Login />
         </Route>
         <Route path="/login">
           <Home />
