@@ -25,7 +25,6 @@ app.use('/', sessionRoutes); // used to log in
 app.use('/user', authenticateJWT , usersRoutes); // can be accessed after logging in
 app.use('/register', registerRoutes ); // can create a user
 app.use('/profile', authenticateJWT, profileRoutes)
-app.use('/comments', authenticateJWT, commentsRoutes ); // nested in events?
 app.use('/feed', authenticateJWT, eventRoutes);
 
 app.listen(port, () => {
