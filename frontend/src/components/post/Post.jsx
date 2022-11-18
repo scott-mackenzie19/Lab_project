@@ -18,8 +18,8 @@ export default function Post({post, id}) {
         <div className="postWrapper">
             <div className="postTop">
                 <div className="postTopLeft">
-                    <img className="postProfileImg" src={PF+Users.filter((u)=>u.id === post.userId)[0].profilePicture} alt="" />
-                    <span className="postUsername">{Users.filter((u)=>u.id === post.userId)[0].username}</span>
+                    <img className="postProfileImg" src={PF+Users.filter((u)=>u.username === post.userId)[0].profilePicture} alt="" />
+                    <span className="postUsername">{Users.filter((u)=>u.username === post.userId)[0].username}</span>
                     <span className="postTime">{post.date}</span>
                 </div>
                 <div className="postTopRight">

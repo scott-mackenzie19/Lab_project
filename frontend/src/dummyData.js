@@ -1,6 +1,5 @@
 export const Users = [
     {
-        id: 0,
         profilePicture: "person/person1.jfif",
         username: "Braiden_Hooke",
         userBio: "This is my bio",
@@ -9,14 +8,14 @@ export const Users = [
         city: "Dallas",
         UserPosts: [
             {
-                id: 1,
+                id: 0,
                 title: "Braidens Birthday",
                 date: "Today",
                 desc: "Come to my birthday party it's finna be a movie.",
                 photo: "post/post4.jpg",
                 time: "10:00am - 10:00pm",
                 location: "SMU BLVD",
-                userId: 0,
+                userId: "Braiden_Hooke",
                 like: 26456,
                 comment: 9,
         
@@ -29,7 +28,7 @@ export const Users = [
                 photo: "post/post2.jpg",
                 time: "10:00pm - whenever",
                 location: "355 Street Lane",
-                userId: 0,
+                userId: "Braiden_Hooke",
                 like: 10,
                 comment: 3,
         
@@ -42,7 +41,7 @@ export const Users = [
                 photo: "post/post3.jpeg",
                 time: "7:00pm - 10:00pm",
                 location: "12 Street Lane",
-                userId: 0,
+                userId: "Braiden_Hooke",
                 like: 8,
                 comment: 2,
         
@@ -55,7 +54,7 @@ export const Users = [
                 photo: "post/post4.jpg",
                 time: "6:30am - 12pm",
                 location: "1984 Street Lane",
-                userId: 0,
+                userId: "Braiden_Hooke",
                 like: 2,
                 comment: 0,
         
@@ -96,7 +95,7 @@ export const Users = [
         ],
     },
     {
-        id: 1,
+      
         profilePicture: "person/person2.jpg",
         username: "Sammy_Perez",
         userBio: "This is my bio",
@@ -106,7 +105,7 @@ export const Users = [
     },
 
     {
-        id: 2,
+ 
         profilePicture: "person/person3.jfif",
         username: "Venkat_Vellanki",
         userBio: "This is my bio",
@@ -115,7 +114,7 @@ export const Users = [
         city: "Dallas",
     },
     {
-        id: 3,
+   
         profilePicture: "person/person4.jpg",
         username: "Scott_mackenzie",
         userBio: "This is my bio",
@@ -131,7 +130,7 @@ export const Users = [
                 photo: "post/post4.jpg",
                 time: "10:00am - 10:00pm",
                 location: "SMU BLVD",
-                userId: 3,
+                userId: "Scott_mackenzie",
                 like: 32,
                 comment: 9,
         
@@ -144,7 +143,7 @@ export const Users = [
                 photo: "post/post2.jpg",
                 time: "10:00pm - whenever",
                 location: "355 Street Lane",
-                userId: 3,
+                userId: "Scott_mackenzie",
                 like: 10,
                 comment: 3,
         
@@ -157,7 +156,7 @@ export const Users = [
                 photo: "post/post3.jpeg",
                 time: "7:00pm - 10:00pm",
                 location: "12 Street Lane",
-                userId: 3,
+                userId: "Scott_mackenzie",
                 like: 8,
                 comment: 2,
         
@@ -170,7 +169,7 @@ export const Users = [
                 photo: "post/post4.jpg",
                 time: "6:30am - 12pm",
                 location: "1984 Street Lane",
-                userId: 3,
+                userId: "Scott_mackenzie",
                 like: 2,
                 comment: 0,     
             },
@@ -210,7 +209,7 @@ export const Users = [
         ]
     },
     {
-        id: 4,
+  
         profilePicture: "person/person5.jpg",
         username: "Isaiah_Batista",
         userBio: "This is my bio",
@@ -219,7 +218,7 @@ export const Users = [
         city: "Dallas",
     },
     {
-        id: 5,
+   
         profilePicture: "person/person6.jpg",
         username: "Nathan_Hon",
         userBio: "This is my bio",
@@ -268,14 +267,14 @@ export const MyFriends = [
 
 export const HomePosts = [
     {
-        eventID: 1,
+        id: 1,
         title: "Braiden's Birthday Bash",
         date: "November 20th",
         desc: "Come to my birthday party it's finna be a movie.",
         photo: "post/post1.jpg",
         time: "6:30pm - 9:20pm",
         location: "1234 Street Lane",
-        userId: 1,
+        userId: "Braiden_Hooke",
         like: 32,
         comment: 9,
 
@@ -288,7 +287,7 @@ export const HomePosts = [
         photo: "post/post2.jpg",
         time: "10:00pm - whenever",
         location: "355 Street Lane",
-        userId: 2,
+        userId: "Sammy_Perez",
         like: 10,
         comment: 3,
 
@@ -301,7 +300,7 @@ export const HomePosts = [
         photo: "post/post3.jpeg",
         time: "7:00pm - 10:00pm",
         location: "12 Street Lane",
-        userId: 3,
+        userId: "Venkat_Vellanki",
         like: 8,
         comment: 2,
 
@@ -314,7 +313,7 @@ export const HomePosts = [
         photo: "post/post4.jpg",
         time: "6:30am - 12pm",
         location: "1984 Street Lane",
-        userId: 4,
+        userId: "Scott_mackenzie",
         like: 2,
         comment: 0,
 

@@ -7,13 +7,19 @@ import { Users } from "../../dummyData"
 
 export default function Profile({id}) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    let user = Users[id];
-    if (!user) {
-        return (
-            <div>How did you even get here bro</div>
-        )
+    let user =""
+    let index
+    console.log(id);
+    for (let i = 0; i < Users.length; i++) {
+        if (Users[i].username === id) {
+        user = Users[i]
+        index = i
+        console.log(index)
+        }
+
     }
-    else {
+    
+    if (user) {
     return (
         <>
             <Topbar /> 
@@ -27,17 +33,22 @@ export default function Profile({id}) {
                         </div>
                     </div>
                     <div className="profileInfo">
-                        <h4 className="profileInfoName">{user.username}</h4>
+                        <h4 className="profileInfoName">{user.username} {console.log(user.username)}</h4>
                         <span className="profileInfoDesc">{user.userBio}</span>
                     </div>
                     <div className="profileRightBottom">
-                        <Feed profile id={id}/>
-                        <Rightbar profile id ={id}/>
+                        {console.log(index)}
+                        <Feed profile id={index}/>
+                        <Rightbar profile id ={index}/>
                     </div>
                 </div>
-
             </div>
         </>
     )
+    }
+    else  {
+        return (
+            <div>How did you even get here bro</div>
+        )
     }
 }
