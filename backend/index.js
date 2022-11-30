@@ -22,7 +22,7 @@ app.get('/health', (request, response, next) => {
    next();
 });
 app.use('/', sessionRoutes); // used to log in
-app.use('/user', authenticateJWT , usersRoutes); // can be accessed after logging in
+// app.use('/user', authenticateJWT , usersRoutes); // can be accessed after logging in
 app.use('/register', registerRoutes ); // can create a user
 app.use('/profile', authenticateJWT, profileRoutes)
 app.use('/feed', authenticateJWT, eventRoutes);
