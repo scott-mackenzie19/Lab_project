@@ -3,7 +3,7 @@
     background-color: rgb(82, 78, 78);
     overflow-y: scroll;
     overflow-x: hidden;
-    color:#f1f1f1;
+    color: #f1f1f1;
     flex: 25%;
     position: sticky;
     top: 50px;
@@ -12,12 +12,15 @@
 ::-webkit-scrollbar {
     width: 5px;
 }
+
 ::-webkit-scrollbar-track {
     background-color: #f1f1f1;
 }
+
 ::-webkit-scrollbar-thumb {
     background-color: rgb(197, 199, 201);
 }
+
 .sidebarWrapper {
     padding: 20px;
     background-color: rgb(82, 78, 78);
@@ -29,6 +32,7 @@
     margin: 0;
     list-style: none;
 }
+
 .sidebarListItem {
     display: flex;
     align-items: center;
@@ -49,12 +53,11 @@
 }
 
 .sidebarHr {
-    margin:20px 0px;
+    margin: 20px 0px;
 }
 
 .sidebarFriendList {
     padding: 0;
     margin: 0;
-    list-style:none;
+    list-style: none;
 }
-

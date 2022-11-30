@@ -6,19 +6,19 @@ import "./home.css"
 
 
 export default function Home() {
-  return  (
+  return (
     <>
-    <Topbar/>
-    <div className="homeContainer">
-      <Sidebar/>
-      <Feed/>
-      <Rightbar/>
-    </div>
+      <Topbar />
+      <div className="homeContainer">
+        <Sidebar />
+        <Feed />
+        <Rightbar />
+      </div>
     </>
   )
 }
-    
-  
-  
-  
+
+
+
+
 

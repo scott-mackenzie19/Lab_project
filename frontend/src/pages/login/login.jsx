@@ -1,5 +1,5 @@
 import "./login.css"
-​
+
 export default function Login() {
   return (
     <div className='login'>
@@ -20,7 +20,7 @@ export default function Login() {
           </div>
         </div>
       </div>
-      
-      </div>
+
+    </div>
   )
 }

@@ -18,7 +18,7 @@ export const Routes = () => {
                     <Home />
                 </Route>
                 <Route path="/profile/:id">
-                    <Profile id={lastItem}/>
+                    <Profile id={lastItem} />
                 </Route>
             </Switch>
         </Router>

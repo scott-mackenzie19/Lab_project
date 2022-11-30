@@ -4,7 +4,7 @@ import { Router } from "./Routes";
 import axios from 'axios';
 
 
-axios.defaults.baseURL='http://ec2-52-14-129-198.us-east-2.compute.amazonaws.com'
+axios.defaults.baseURL = 'http://ec2-52-14-129-198.us-east-2.compute.amazonaws.com'
 let thePath = window.location.pathname;
 let lastItem = thePath.substring(thePath.lastIndexOf('/') + 1);
 
@@ -35,13 +35,13 @@ export default function App() {
   // fetches vals of db via GET request
   const fetchVals = () => {
     axios.get(`http://${url}:8000/values`).then(
-        res => {
-          const values = res.data.data;
-          console.log(values);
-          setValues(values)
-        }).catch(err => {
-      console.log(err)
-    });
+      res => {
+        const values = res.data.data;
+        console.log(values);
+        setValues(values)
+      }).catch(err => {
+        console.log(err)
+      });
   }
 
   // handle input form submission to backend via POST request
@@ -77,4 +77,3 @@ export default function App() {
   <Router />;
 }
 
-  
