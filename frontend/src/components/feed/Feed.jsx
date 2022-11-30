@@ -1,7 +1,10 @@
 import Post from "../post/Post"
 import Share from "../share/Share"
 import "./feed.css"
-import {HomePosts, Users} from "../../dummyData";
+import { Users} from "../../dummyData";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import  fetchAllEvents  from "./events.cjs";
 
 const ProfileFeed =({id})=> {
   let UserPosts = Users[id].UserPosts
@@ -32,6 +35,12 @@ const ProfileFeed =({id})=> {
 }
 
 export default function Feed({profile, id}) {
+  const [posts, setPosts] = useState([])
+
+  useEffect(()=> {    
+    console.log("EVENTS: \n", fetchAllEvents)
+  },[])
+
   if (!profile) {
   return (
     <div className="feed">

@@ -10,7 +10,7 @@ const routes = require('./routes');
 // set up some configs for express.
 const config = {
   name: 'sample-express-app',
-  port: 3006,
+  port: 8000,
   host: 'localhost',
 };
 

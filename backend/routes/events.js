@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+
 module.exports = router;
 
 const bodyParser = require('body-parser');
@@ -24,8 +25,8 @@ router.get('/:username/events', async (req, res, next) => {
 });
 
 // home feed events = events of friends
-router.get('/', async (req, res, next) => {
-    const userID = req.body.username;
+router.get('/events', async (req, res, next) => {
+    const userID = res.params.username;
     const type = req.body.type;
 
     const user = await req.models.user.findUserByName(userID);
@@ -41,7 +42,7 @@ router.get('/', async (req, res, next) => {
 
     try {
         if (type === "home") {
-            // console.log(userInfo)
+             console.log(userInfo)
             const result = await req.models.event.fetchHomeFeedEvents(userInfo, filter_zipcode_bool, filter_date, filter_time);
 
             if (result.length === 0){
@@ -64,7 +65,7 @@ router.get('/', async (req, res, next) => {
         else {
 
             const result = await req.models.event.fetchAllEvents();
-            // console.log(result)
+             console.log("Result: \n", result)
             if (result.length === 0){
                 res.status(200).json(`There are no events available`);
             }
@@ -89,7 +90,7 @@ router.post('/', async (req, res, next) => {
     const time = req.body.time;
     const date = req.body.date;
     const agerestrict = req.body.agerestrict;
-    const private = req.body.private;
+    const private1 = req.body.private;
     const close = req.body.close;
 
     try {

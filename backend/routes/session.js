@@ -5,6 +5,7 @@ const router = express.Router();
 router.post('/', async (req, res, next) => {
     try {
         const body = req.body;
+        
 
         const result = await UserController.authenticateUser(body.username, body.password);
         if (result === null) {

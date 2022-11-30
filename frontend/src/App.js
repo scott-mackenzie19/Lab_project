@@ -9,7 +9,7 @@ import {
   Switch,
 } from "react-router-dom";
 
-axios.defaults.baseURL='http://ec2-52-14-129-198.us-east-2.compute.amazonaws.com'
+axios.defaults.baseURL='http://localhost:8000/'
 let thePath = window.location.pathname;
 let lastItem = thePath.substring(thePath.lastIndexOf('/') + 1);
 console.log(lastItem);
@@ -38,17 +38,7 @@ export default function App() {
     })
   }
 
-  // fetches vals of db via GET request
-  const fetchVals = () => {
-    axios.get(`http://${url}:8000/values`).then(
-      res => {
-        const values = res.data.data;
-        console.log(values);
-        setValues(values)
-      }).catch(err => {
-        console.log(err)
-      });
-  }
+  
 
   // handle input form submission to backend via POST request
   const handleSubmit = (e) => {
@@ -76,7 +66,6 @@ export default function App() {
   // tell app to fetch values from db on first load (if initialized)
   // the comment below silences an error that doesn't matter.=
   useEffect(() => {
-    fetchVals();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -86,7 +75,7 @@ export default function App() {
         <Route exact path="/">
           <Login />
         </Route>
-        <Route path="/login">
+        <Route path="/feed">
           <Home />
         </Route>
         <Route path="/register">

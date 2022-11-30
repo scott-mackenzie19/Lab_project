@@ -2,12 +2,19 @@ const knex = require('../database/knex');
 const USER_TABLE = 'users';
 const EVENT_TABLE = 'events';
 const FRIEND_TABLE = 'friends';
-
-const fetchAllEvents = async () => {
+export let array = Array(50).fill();
+const  fetchAllEvents = async() =>{
     const query = knex(EVENT_TABLE);
     const results = await query;
-    // console.log(results.length)
-    // console.log(results);
+     array = Array(results.length).fill();
+     for (let i = 0; i<results.length; i++) {
+        array[i] = results[i]
+        
+     }
+     console.log("Results: \n", results)
+     console.log(results[4].userID)
+
+
     return results;
 }
 
@@ -34,10 +41,10 @@ const fetchEventsByUser = async (userID) => {
     return results;
 }
 
-const createEvent = async (userID, title, description, zipcode, address, time, date, agerestrict, private, close) => {
+const createEvent =  async (userID, title, description, zipcode, address, time, date, agerestrict, private1, close) => {
     const query = await knex(EVENT_TABLE).insert({
         userID: userID, title: title, description: description, zipcode: zipcode, address: address,
-        time: time, date: date, min_agerestrict: agerestrict, private_event: private, close_friend: close
+        time: time, date: date, min_agerestrict: agerestrict, private_event: private1, close_friend: close
         //date.time
     });
     // const results = await query;
