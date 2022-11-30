@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Home from './pages/home/Home';
-import Profile from './pages/profile/Profile';
-import Login from './pages/profile/Login';
 import './App.css';
+import { Router } from "./Routes";
 import axios from 'axios';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from "react-router-dom";
-import Login from './pages/login/login';
+
 
 axios.defaults.baseURL='http://ec2-52-14-129-198.us-east-2.compute.amazonaws.com'
 let thePath = window.location.pathname;
@@ -42,13 +35,13 @@ export default function App() {
   // fetches vals of db via GET request
   const fetchVals = () => {
     axios.get(`http://${url}:8000/values`).then(
-      res => {
-        const values = res.data.data;
-        console.log(values);
-        setValues(values)
-      }).catch(err => {
-        console.log(err)
-      });
+        res => {
+          const values = res.data.data;
+          console.log(values);
+          setValues(values)
+        }).catch(err => {
+      console.log(err)
+    });
   }
 
   // handle input form submission to backend via POST request
@@ -79,26 +72,9 @@ export default function App() {
   useEffect(() => {
     fetchVals();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Login />
-        </Route>
-        <Route path="/login">
-          <Home />
-        </Route>
-        <Route path="/register">
-          <Home />
-        </Route>
-        <Route path="/profile/:id">
-          <Profile id={lastItem}/>
-        </Route>
-      </Switch>
-    </Router>
-  )
+  <Router />;
 }
 
   
