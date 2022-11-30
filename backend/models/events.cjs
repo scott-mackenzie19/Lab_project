@@ -2,7 +2,11 @@ const knex = require('../database/knex');
 const USER_TABLE = 'users';
 const EVENT_TABLE = 'events';
 const FRIEND_TABLE = 'friends';
-export let array = Array(50).fill();
+let array = Array(50).fill();
+
+const geArray = () => {
+    
+}
 const  fetchAllEvents = async() =>{
     const query = knex(EVENT_TABLE);
     const results = await query;

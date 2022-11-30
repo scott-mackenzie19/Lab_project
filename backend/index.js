@@ -44,7 +44,7 @@ app.use('/feed', authenticateJWT, eventRoutes);
 
 app.listen(port, () => {
    console.log(`This app is listening on port  ${port}`);
-   console.log(events)
+   console.log(events);
 });
 
 

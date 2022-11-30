@@ -2,11 +2,11 @@ const knex = require('../database/knex');
 const USER_TABLE = 'users';
 const EVENT_TABLE = 'events';
 const FRIEND_TABLE = 'friends';
-
+ let array = Array(50).fill();
 const  fetchAllEvents = async() =>{
     const query = knex(EVENT_TABLE);
     const results = await query;
-     let array = Array(results.length).fill();
+     array = Array(results.length).fill();
      for (let i = 0; i<results.length; i++) {
         array[i] = results[i]
         
@@ -162,5 +162,6 @@ module.exports = {
     fetchHomeFeedEvents,
     fetchDiscoverFeedEvents,
     createEvent,
+    array,
     deleteEvent
 }

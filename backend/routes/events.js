@@ -26,8 +26,9 @@ router.get('/:username/events', async (req, res, next) => {
 
 // home feed events = events of friends
 router.get('/events', async (req, res, next) => {
-    const userID = res.params.username;
+    const userID = req.params.username;
     const type = req.body.type;
+    
 
     const user = await req.models.user.findUserByName(userID);
     const userInfo = user[0]
