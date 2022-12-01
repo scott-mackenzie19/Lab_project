@@ -1,6 +1,9 @@
 const knex = require('../database/knex');
 const bcrypt = require('bcrypt');
-const LIKES_TABLE = 'likes';
+const USER_TABLE = 'users';
+const EVENT_TABLE = 'events';
+const FRIEND_TABLE = 'friends';
+const COMMENTS_TABLE = 'comments';
 
 // get comments and display on page
 const fetchCommentsByEventID = async (eventID) => {
