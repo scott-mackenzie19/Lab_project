@@ -9,6 +9,19 @@ const addFriend = async (userID, followedID) => {
     // console.log(results);
     return results;
 }
+
+const addCloseFriend = async (userID, followedID, friendType) => {
+    if (friendType === 1) {
+        const query = knex(FRIEND_TABLE).where({userID, followedID}).update({close_friend: 1});
+        const results = await query;
+        return results;
+    } else {
+        const query = knex(FRIEND_TABLE).where({userID, followedID}).update({close_friend: 0});
+        const results = await query;
+        return results;
+    }
+    
+}
 const deleteFriend = async (userID, followedID) => {
     const query = knex(FRIEND_TABLE).delete().where({ userID, followedID });
     const results = await query;
@@ -50,6 +63,7 @@ const fetchCloseFriends = async (userID) => {
 
 module.exports = {
     addFriend,
+    addCloseFriend,
     deleteFriend,
     fetchFollowing,
     fetchFollowing_withpfp,

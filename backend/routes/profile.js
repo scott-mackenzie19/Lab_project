@@ -44,7 +44,25 @@ router.post('/:username', async (req, res, next) => {
     try {
 
         const result = await req.models.friend.addFriend(curr_user, username)
+        res.status(201).json(result);
+    }
+    catch (err) {
+        // console.error(`{username} is already a friend`, err);
+        res.status(500).json(`${username} is already a friend`, {message: err.toString() });
+    }
 
+    next();
+});
+
+router.put('/:username', async (req, res, next) => {
+
+    const { username } = req.params;
+    const curr_user = req.body.curr_user;
+    
+    const friendType = req.body.friendType;
+
+    try {
+        const result = await req.models.friend.addCloseFriend(curr_user, username, friendType)
         res.status(201).json(result);
     }
     catch (err) {
