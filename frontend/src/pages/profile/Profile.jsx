@@ -5,7 +5,7 @@ import Topbar from "../../components/topbar/Topbar"
 import Feed from "../../components/feed/Feed"
 import { Users } from "../../dummyData"
 
-export default function Profile({id}) {
+export default function Profile({ id }) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     let user = Users[id];
     if (!user) {
@@ -14,30 +14,30 @@ export default function Profile({id}) {
         )
     }
     else {
-    return (
-        <>
-            <Topbar /> 
-            <div className="profile">
-            <Sidebar className="sidebar"/>
-                <div className="profileRight">
-                    <div className="profileRightTop">
-                        <div className="profileCover">
-                            <img className="profileCoverImg" src={PF+"post/post3.jpeg"} alt="" />
-                            <img className="profileUserImg" src={PF+user.profilePicture} alt="" />
+        return (
+            <>
+                <Topbar />
+                <div className="profile">
+                    <Sidebar className="sidebar" />
+                    <div className="profileRight">
+                        <div className="profileRightTop">
+                            <div className="profileCover">
+                                <img className="profileCoverImg" src={PF + "post/post3.jpeg"} alt="" />
+                                <img className="profileUserImg" src={PF + user.profilePicture} alt="" />
+                            </div>
+                        </div>
+                        <div className="profileInfo">
+                            <h4 className="profileInfoName">{user.username}</h4>
+                            <span className="profileInfoDesc">{user.userBio}</span>
+                        </div>
+                        <div className="profileRightBottom">
+                            <Feed profile id={id} />
+                            <Rightbar profile id={id} />
                         </div>
                     </div>
-                    <div className="profileInfo">
-                        <h4 className="profileInfoName">{user.username}</h4>
-                        <span className="profileInfoDesc">{user.userBio}</span>
-                    </div>
-                    <div className="profileRightBottom">
-                        <Feed profile id={id}/>
-                        <Rightbar profile id ={id}/>
-                    </div>
-                </div>
 
-            </div>
-        </>
-    )
+                </div>
+            </>
+        )
     }
 }

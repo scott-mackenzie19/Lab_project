@@ -36,6 +36,44 @@ router.get('/:username', async (req, res, next) => {
     next();
 });
 
+router.post('/:username', async (req, res, next) => {
+
+    const { username } = req.params;
+    const curr_user = req.body.curr_user;
+
+    try {
+
+        const result = await req.models.friend.addFriend(curr_user, username)
+
+        res.status(201).json(result);
+    }
+    catch (err) {
+        // console.error(`{username} is already a friend`, err);
+        res.status(500).json(`${username} is already a friend`, {message: err.toString() });
+    }
+
+    next();
+});
+
+router.delete('/:username', async (req, res, next) => {
+
+    const { username } = req.params;
+    const curr_user = req.body.curr_user;
+
+    try {
+
+        const result = await req.models.friend.deleteFriend(curr_user, username)
+
+        res.status(204).json(result);
+    }
+    catch (err) {
+        // console.error(`{username} is already a friend`, err);
+        res.status(500).json({message: err.toString() });
+    }
+
+    next();
+});
+
 router.get('/:username/following', async (req, res, next) => {
 
     const { username } = req.params;

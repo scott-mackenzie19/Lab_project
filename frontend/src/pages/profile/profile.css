@@ -1,5 +1,5 @@
 .profile {
-    display:flex;
+    display: flex;
 }
 
 .profileRight {
@@ -7,9 +7,9 @@
 }
 
 .profileCover {
-    height:320px;
+    height: 320px;
     width: 100%;
-    position:relative;
+    position: relative;
     z-index: -10;
 }
 
@@ -48,7 +48,6 @@
 }
 
 .profileRightBottom {
-    display:flex;
+    display: flex;
     flex: 75%;
 }
-

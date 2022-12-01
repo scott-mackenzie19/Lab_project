@@ -1,6 +1,20 @@
 const knex = require('../database/knex');
 
 const FRIEND_TABLE = 'friends';
+
+const addFriend = async (userID, followedID) => {
+    const query = knex(FRIEND_TABLE).insert({userID, followedID});
+    const results = await query;
+    // console.log(results.length)
+    // console.log(results);
+    return results;
+}
+const deleteFriend = async (userID, followedID) => {
+    const query = knex(FRIEND_TABLE).delete().where({ userID, followedID });
+    const results = await query;
+    return results;
+}
+
 const fetchFollowing = async (userID) => {
     const query = knex(FRIEND_TABLE).select('followedID').select('close_friend').where({userID});
     const results = await query;
@@ -35,6 +49,8 @@ const fetchCloseFriends = async (userID) => {
 }
 
 module.exports = {
+    addFriend,
+    deleteFriend,
     fetchFollowing,
     fetchFollowing_withpfp,
     fetchFollowers,

@@ -1,8 +1,8 @@
 .sidebarFriend {
-    display:flex;
+    display: flex;
     align-items: center;
     margin-bottom: 15px;
-    cursor:pointer;
+    cursor: pointer;
 
 }
 
@@ -10,7 +10,7 @@
     width: 2rem;
     height: 32px;
     border-radius: 50%;
-    object-fit:cover;
+    object-fit: cover;
     margin: right 10px;
 }
 

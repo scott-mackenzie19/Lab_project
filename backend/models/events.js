@@ -128,13 +128,28 @@ const fetchHomeFeedEvents = async (userInfo, zipcode_bool, date_filter, time_fil
     return results;
 }
 
-const fetchDiscoverFeedEvents = async (userID) => {
+const fetchDiscoverFeedEvents = async (userInfo, zipcode_bool, date_filter, time_filter) => {
     // const query = knex.select('*').from(EVENT_TABLE).join('friends', function () {
     //     this.on('events.userID', '<>', 'friends.followedID').onIn('friends.userID', [userID])})
 
+    const userID = userInfo.username;
+    const zipcode = userInfo.zipcode;
+    const age = userInfo.age;
+
     const subquery = knex(FRIEND_TABLE).where({ userID }).select('followedID');
     const subquery2 = knex(USER_TABLE).where('username', 'not in', subquery).andWhere('username', '!=', userID).select('username');
-    const query = knex(EVENT_TABLE).where('userID', 'in', subquery2).andWhere('private_event', false).andWhere('close_friend', false);
+    const query = knex(EVENT_TABLE).where('userID', 'in', subquery2).andWhere('private_event', false).andWhere('close_friend', false).andWhere('min_agerestrict', '<=', age);
+
+    // repeat processes for all filters
+    if (zipcode_bool) {
+        query = knex(EVENT_TABLE).where('eventID', 'in', query.select('eventID')).andWhere('zipcode', '=', zipcode)
+    }
+    if (date_filter) {
+        query = knex(EVENT_TABLE).where('eventID', 'in', query.select('eventID')).andWhere('date', '=', date_filter)
+    }
+    if (time_filter) {
+        query = knex(EVENT_TABLE).where('eventID', 'in', query.select('eventID')).andWhere('time', '>=', time_filter)
+    }
 
     const results = await query;
 
