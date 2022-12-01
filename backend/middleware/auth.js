@@ -17,4 +17,4 @@ const authHeader = req.headers.authorization;
             next();
         });
 };
-module.exports = { authenticateJWT };
+export default { authenticateJWT };
