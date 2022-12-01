@@ -28,9 +28,6 @@ router.get('/', async (req, res, next) => {
     const userID = req.body.username;
     const type = req.body.type;
 
-    const user = await req.models.user.findUserByName(userID);
-    const userInfo = user[0]
-    delete userInfo.password;
 
     // filters
     // zipcode will be a bool, date and time will be in date and time format respectfully
@@ -42,6 +39,10 @@ router.get('/', async (req, res, next) => {
 
 
     try {
+        const user = await req.models.user.findUserByName(userID);
+        const userInfo = user[0]
+        delete userInfo.password;
+
         if (type === "home") {
             // console.log(userInfo)
             const result = await req.models.event.fetchHomeFeedEvents(userInfo, filter_zipcode_bool, filter_date, filter_time, sortType);
@@ -54,7 +55,7 @@ router.get('/', async (req, res, next) => {
             }
         }
         else if (type === "discover") {
-            const result = await req.models.event.fetchDiscoverFeedEvents(userInfo);
+            const result = await req.models.event.fetchDiscoverFeedEvents(userInfo, filter_zipcode_bool, filter_date, filter_time, sortType);
             // console.log(result)
             if (result.length === 0) {
                 res.status(200).json(`There are no discover events for ${userID}`);

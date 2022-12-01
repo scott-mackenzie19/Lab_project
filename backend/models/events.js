@@ -1,3 +1,4 @@
+const e = require('express');
 const knex = require('../database/knex');
 const USER_TABLE = 'users';
 const EVENT_TABLE = 'events';
@@ -161,7 +162,7 @@ const fetchHomeFeedEvents = async (userInfo, zipcode_bool, date_filter, time_fil
     return results;
 }
 
-const fetchDiscoverFeedEvents = async (userInfo, zipcode_bool, date_filter, time_filter) => {
+const fetchDiscoverFeedEvents = async (userInfo, zipcode_bool, date_filter, time_filter, sortType) => {
     // const query = knex.select('*').from(EVENT_TABLE).join('friends', function () {
     //     this.on('events.userID', '<>', 'friends.followedID').onIn('friends.userID', [userID])})
 
@@ -171,7 +172,27 @@ const fetchDiscoverFeedEvents = async (userInfo, zipcode_bool, date_filter, time
 
     const subquery = knex(FRIEND_TABLE).where({ userID }).select('followedID');
     const subquery2 = knex(USER_TABLE).where('username', 'not in', subquery).andWhere('username', '!=', userID).select('username');
-    const query = knex(EVENT_TABLE).where('userID', 'in', subquery2).andWhere('private_event', false).andWhere('close_friend', false).andWhere('min_agerestrict', '<=', age);
+    query = knex(EVENT_TABLE).where('userID', 'in', subquery2)
+        .andWhere('private_event', false).andWhere('close_friend', false)
+        .andWhere('min_agerestrict', '<=', age);
+
+    if (sortType === "most") {
+        query = knex(EVENT_TABLE).where('userID', 'in', subquery2)
+            .andWhere('private_event', false)
+            .andWhere('close_friend', false)
+            .andWhere('min_agerestrict', '<=', age)
+            .orderBy('likes', 'desc');
+    } else if (sortType === "least") {
+        query = knex(EVENT_TABLE).where('userID', 'in', subquery2)
+            .andWhere('private_event', false).andWhere('close_friend', false)
+            .andWhere('min_agerestrict', '<=', age)
+            .orderBy('likes', 'asc');
+    } else {
+        query = knex(EVENT_TABLE).where('userID', 'in', subquery2)
+            .andWhere('private_event', false)
+            .andWhere('close_friend', false).andWhere('min_agerestrict', '<=', age)
+            .orderBy('date', 'asc').orderBy('time', 'asc');
+    }
 
     // repeat processes for all filters
     if (zipcode_bool) {
