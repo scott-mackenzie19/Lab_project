@@ -8,20 +8,20 @@ const e = require('express');
 router.use(bodyParser.json());
 
 // this might have to go into the user.js routes file and not the events
-router.get('/:username/events', async (req, res, next) => {
-    const { username } = req.params;
+// router.get('/:username/events', async (req, res, next) => {
+//     const { username } = req.params;
 
-    try {
-        // const events = await db('events').where({ userID: username })
-        const result = await req.models.event.fetchEventsByUser(username);
+//     try {
+//         // const events = await db('events').where({ userID: username })
+//         const result = await req.models.event.fetchEventsByUser(username);
 
-        res.status(200).json(result)
-    } catch (err) {
-        res.status(500).json({ message: "can't get user events" })
-    }
+//         res.status(200).json(result)
+//     } catch (err) {
+//         res.status(500).json({ message: "can't get user events" })
+//     }
 
-    next();
-});
+//     next();
+// });
 
 // home feed events = events of friends
 router.get('/', async (req, res, next) => {
@@ -52,7 +52,7 @@ router.get('/', async (req, res, next) => {
             }
         }
         else if (type === "discover") {
-            const result = await req.models.event.fetchDiscoverFeedEvents(userID);
+            const result = await req.models.event.fetchDiscoverFeedEvents(userInfo);
             // console.log(result)
             if (result.length === 0){
                 res.status(200).json(`There are no discover events for ${userID}`);
