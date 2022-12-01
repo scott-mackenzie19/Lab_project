@@ -38,26 +38,28 @@ router.get('/', async (req, res, next) => {
     const filter_date = req.body.filter_date;
     const filter_time = req.body.filter_time;
 
+    const sortType = req.body.sortType;
+
 
     try {
         if (type === "home") {
             // console.log(userInfo)
-            const result = await req.models.event.fetchHomeFeedEvents(userInfo, filter_zipcode_bool, filter_date, filter_time);
+            const result = await req.models.event.fetchHomeFeedEvents(userInfo, filter_zipcode_bool, filter_date, filter_time, sortType);
 
-            if (result.length === 0){
+            if (result.length === 0) {
                 res.status(200).json(`There are no home events for ${userID}`);
             }
-            else{
+            else {
                 res.status(200).json(result);
             }
         }
         else if (type === "discover") {
             const result = await req.models.event.fetchDiscoverFeedEvents(userInfo);
             // console.log(result)
-            if (result.length === 0){
+            if (result.length === 0) {
                 res.status(200).json(`There are no discover events for ${userID}`);
             }
-            else{
+            else {
                 res.status(200).json(result);
             }
         }
@@ -65,10 +67,10 @@ router.get('/', async (req, res, next) => {
 
             const result = await req.models.event.fetchAllEvents();
             // console.log(result)
-            if (result.length === 0){
+            if (result.length === 0) {
                 res.status(200).json(`There are no events available`);
             }
-            else{
+            else {
                 res.status(200).json(result);
             }
         }
@@ -99,7 +101,7 @@ router.post('/', async (req, res, next) => {
         res.status(200).json(result)
     } catch (err) {
         console.error(err)
-        res.status(500).json({ message: "can't create event", err})
+        res.status(500).json({ message: "can't create event", err })
     }
 
     next();
@@ -108,19 +110,19 @@ router.post('/', async (req, res, next) => {
 // return event and comments for that eventID
 router.get('/:eventID', async (req, res, next) => {
     const { eventID } = req.params;
-    
+
     try {
         // retrieve event under specified eventID
         const result = await req.models.event.fetchEventsByID(eventID);
         // retrieve comments under specified eventID
         const result1 = await req.models.comments.fetchCommentsByEventID(eventID);
 
-        res.status(200).json( { event: result, comments: result1 })
+        res.status(200).json({ event: result, comments: result1 })
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "can't get comment with event id" })
     }
-    
+
 
     next();
 });
@@ -129,7 +131,7 @@ router.post('/:eventID', async (req, res, next) => {
     const { eventID } = req.params;
     const userID = req.body.username;
     const comment = req.body.comment;
-    
+
     try {
         // retrieve event under specified eventID
         const result = await req.models.comments.createComment(userID, eventID, comment);
@@ -138,7 +140,22 @@ router.post('/:eventID', async (req, res, next) => {
         console.log(err);
         res.status(500).json({ message: "can't post comment" })
     }
-    
+
 
     next();
 });
+
+router.put('/', async (req, res, next) => {
+    const likeVal = req.body.likeVal;
+    const eventID = req.body.eventID;
+
+    try {
+        const result = await req.models.event.updateLikes(eventID, likeVal);
+        res.status(200).json(result)
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "can't update like for the event" })
+    }
+
+    next();
+})

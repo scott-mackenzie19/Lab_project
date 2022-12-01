@@ -23,13 +23,31 @@ const fetchEventsByID = async (event_id) => {
     return results;
 }
 
+const updateLikes = async (event_id, like) => {
+    if (like === 1) {
+        const query = await knex(EVENT_TABLE).where('eventID', '=', event_id).increment('likes', 1);
+        const results = await query;
+        return results;
+    }
+    else if (like === 0) {
+        const query = await knex(EVENT_TABLE).where('eventID', '=', event_id).decrement('likes', 1);
+        const results = await query;
+        return results;
+    }
+    else {
+        const query = await knex(EVENT_TABLE).where('eventID', '=', event_id).decrement('likes', 0);
+        const results = await query;
+        return results;
+    }
+}
+
 const fetchEventsByUser = async (userID) => {
     // const query = knex(USER_TABLE).where({ username: name });
     // const events = await knex(EVENT_TABLE)
     //     .join('users as u', 'u.username', 'events.userID')
     //     .select('events.eventID', 'u.username', 'events.title', 'events.description')
     //     .where({ userID: name })
-    const events = await knex(EVENT_TABLE).where({userID})
+    const events = await knex(EVENT_TABLE).where({ userID })
     const results = await events;
     return results;
 }
@@ -46,7 +64,7 @@ const createEvent = async (userID, title, description, zipcode, address, time, d
 }
 
 // find user's friends' events
-const fetchHomeFeedEvents = async (userInfo, zipcode_bool, date_filter, time_filter) => {
+const fetchHomeFeedEvents = async (userInfo, zipcode_bool, date_filter, time_filter, sortType) => {
     // const query = await knex(FREIND_TABLE).select('followedID').where({ userID });
     // const events = await query.knex(EVENT_TABLE)
     //     .join('friends as f', 'f.userID', 'events.userID')
@@ -91,6 +109,20 @@ const fetchHomeFeedEvents = async (userInfo, zipcode_bool, date_filter, time_fil
         .orWhere('userID', '=', userID);
 
     //     const query = query1.where('*', 'not in', query2)
+    if (sortType === "most") {
+        query = knex(EVENT_TABLE).where('eventID', 'in', subquery2).andWhere('eventID', 'not in', subquery4)
+            .andWhere('eventID', 'not in', subquery6).andWhere('min_agerestrict', '<=', age)
+            .orWhere('userID', '=', userID).orderBy('likes', 'desc');
+    } else if (sortType === "least") {
+        query = knex(EVENT_TABLE).where('eventID', 'in', subquery2).andWhere('eventID', 'not in', subquery4)
+            .andWhere('eventID', 'not in', subquery6).andWhere('min_agerestrict', '<=', age)
+            .orWhere('userID', '=', userID).orderBy('likes', 'asc');
+    }
+    else {
+        query = knex(EVENT_TABLE).where('eventID', 'in', subquery2).andWhere('eventID', 'not in', subquery4)
+            .andWhere('eventID', 'not in', subquery6).andWhere('min_agerestrict', '<=', age)
+            .orWhere('userID', '=', userID).orderBy('date', 'asc').orderBy('time', 'asc');
+    }
 
 
     // repeat processes for all filters
@@ -103,6 +135,7 @@ const fetchHomeFeedEvents = async (userInfo, zipcode_bool, date_filter, time_fil
     if (time_filter) {
         query = knex(EVENT_TABLE).where('eventID', 'in', query.select('eventID')).andWhere('time', '>=', time_filter)
     }
+
 
     // User enters a specific date and filter by that date. year/month/day
     // Entered time is any time at or after 
@@ -167,6 +200,7 @@ module.exports = {
     fetchEventsByTitle,
     fetchEventsByID,
     fetchEventsByUser,
+    updateLikes,
     fetchHomeFeedEvents,
     fetchDiscoverFeedEvents,
     createEvent,
