@@ -18,7 +18,7 @@ export const Users = [
                 userId: "Braiden_Hooke",
                 like: 26456,
                 comment: 9,
-        
+
             },
             {
                 id: 2,
@@ -31,7 +31,7 @@ export const Users = [
                 userId: "Braiden_Hooke",
                 like: 10,
                 comment: 3,
-        
+
             },
             {
                 id: 3,
@@ -44,7 +44,7 @@ export const Users = [
                 userId: "Braiden_Hooke",
                 like: 8,
                 comment: 2,
-        
+
             },
             {
                 id: 4,
@@ -57,7 +57,7 @@ export const Users = [
                 userId: "Braiden_Hooke",
                 like: 2,
                 comment: 0,
-        
+
             },
         ],
         UserFriends: [
@@ -91,11 +91,11 @@ export const Users = [
                 profilePicture: "person/person3.jfif",
                 username: "Venkat_Vellanki"
             },
-        
+
         ],
     },
     {
-      
+
         profilePicture: "person/person2.jpg",
         username: "Sammy_Perez",
         userBio: "This is my bio",
@@ -105,7 +105,7 @@ export const Users = [
     },
 
     {
- 
+
         profilePicture: "person/person3.jfif",
         username: "Venkat_Vellanki",
         userBio: "This is my bio",
@@ -114,7 +114,7 @@ export const Users = [
         city: "Dallas",
     },
     {
-   
+
         profilePicture: "person/person4.jpg",
         username: "Scott_mackenzie",
         userBio: "This is my bio",
@@ -133,7 +133,7 @@ export const Users = [
                 userId: "Scott_mackenzie",
                 like: 32,
                 comment: 9,
-        
+
             },
             {
                 id: 2,
@@ -146,7 +146,7 @@ export const Users = [
                 userId: "Scott_mackenzie",
                 like: 10,
                 comment: 3,
-        
+
             },
             {
                 id: 3,
@@ -159,7 +159,7 @@ export const Users = [
                 userId: "Scott_mackenzie",
                 like: 8,
                 comment: 2,
-        
+
             },
             {
                 id: 4,
@@ -171,7 +171,7 @@ export const Users = [
                 location: "1984 Street Lane",
                 userId: "Scott_mackenzie",
                 like: 2,
-                comment: 0,     
+                comment: 0,
             },
         ],
         UserFriends: [
@@ -205,11 +205,11 @@ export const Users = [
                 profilePicture: "person/person3.jfif",
                 username: "Venkat_Vellanki"
             },
-        
+
         ]
     },
     {
-  
+
         profilePicture: "person/person5.jpg",
         username: "Isaiah_Batista",
         userBio: "This is my bio",
@@ -218,7 +218,7 @@ export const Users = [
         city: "Dallas",
     },
     {
-   
+
         profilePicture: "person/person6.jpg",
         username: "Nathan_Hon",
         userBio: "This is my bio",

@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+const jwt = require("./model-middleware");
 const accessTokenSecret = 'mysupercoolsecret';
 console.log(`This app`)
 const authenticateJWT = (req, res, next) => {
@@ -12,9 +12,9 @@ const authHeader = req.headers.authorization;
             if (err) {
                 return res.sendStatus(403);
             }
-            return res.sendStatus(403);
+        
             req.user = user;
             next();
         });
 };
-export default { authenticateJWT };
+module.exports = { authenticateJWT };

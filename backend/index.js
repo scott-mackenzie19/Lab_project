@@ -10,7 +10,7 @@ const sessionRoutes = require('./routes/session');
 const registerRoutes  = require('./routes/register');
 const profileRoutes  = require('./routes/profile');
 const commentsRoutes  = require('./routes/comments' ); // check
-const eventRoutes = require('./routes/events.js');
+const eventRoutes = require('./routes/events');
 const { authenticateJWT , authenticateWithClaims  } = require('./middleware/auth' );
 const { createModelsMiddleware  } = require('./middleware/model-middleware' );
 const app = express();
@@ -36,15 +36,14 @@ app.get('/health', (request, response, next) => {
    next();
 });
 app.use('/', sessionRoutes); // used to log in
-app.use('/user', authenticateJWT , usersRoutes); // can be accessed after logging in
+// app.use('/user',  usersRoutes); // can be accessed after logging in
 app.use('/register', registerRoutes ); // can create a user
-app.use('/profile', authenticateJWT, profileRoutes)
-app.use('/comments', authenticateJWT, commentsRoutes ); // nested in events?
-app.use('/feed', authenticateJWT, eventRoutes);
+app.use('/profile',  profileRoutes)
+app.use('/comments',  commentsRoutes ); // nested in events?
+app.use('/feed', eventRoutes);
 
 app.listen(port, () => {
    console.log(`This app is listening on port  ${port}`);
-   console.log(events);
 });
 
 

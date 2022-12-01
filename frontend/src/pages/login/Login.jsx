@@ -7,23 +7,23 @@ import axios from "axios";
 export default function Login() {
   const [userName, setUsername] = useState("");
   const [passWord, setPassword] = useState("");
-    
+
 
   function submitEvent() {
     if (userName && passWord) {
       axios.post('http://localhost:8000/', {
-      "username": userName,
-      "password": passWord,
-    })
-  .then(function (response) {
-    console.log(response.data);
-    return response.data
-  })
-  .catch(function (error) {
-    console.log("incorrect, try again.");
-  })
+        "username": userName,
+        "password": passWord,
+      })
+        .then(function (response) {
+          console.log(response.data);
+          return response.data
+        })
+        .catch(function (error) {
+          console.log("incorrect, try again.");
+        })
     }
-  
+
   }
 
   return (
@@ -37,17 +37,17 @@ export default function Login() {
         </div>
         <div className="loginRight">
           <div className="loginBox">
-            <input placeholder="Username" 
-            className="loginInput" onChange={(e) =>setUsername(e.target.value)} />
-            <input placeholder="Password" className="loginInput" 
-            onChange={(e) =>setPassword(e.target.value)}/>
+            <input placeholder="Username"
+              className="loginInput" onChange={(e) => setUsername(e.target.value)} />
+            <input placeholder="Password" className="loginInput"
+              onChange={(e) => setPassword(e.target.value)} />
             <button onClick={submitEvent} className="loginButton">Log In</button>
             <span className="loginForgot">Forgot Password?</span>
             <button className="loginRegisterButton">Create a New Account</button>
           </div>
         </div>
       </div>
-      
-      </div>
+
+    </div>
   )
 }

@@ -9,7 +9,7 @@ import {
   Switch,
 } from "react-router-dom";
 
-axios.defaults.baseURL='http://localhost:8000/'
+axios.defaults.baseURL = 'http://localhost:8000/'
 let thePath = window.location.pathname;
 let lastItem = thePath.substring(thePath.lastIndexOf('/') + 1);
 console.log(lastItem);
@@ -36,31 +36,6 @@ export default function App() {
     axios.get(`http://${url}:8000/`).then((res) => {
       alert(res.data);
     })
-  }
-
-  
-
-  // handle input form submission to backend via POST request
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let prod = number * number;
-    axios.post(`http://${url}:8000/multplynumber`, { product: prod }).then(res => {
-      console.log(res);
-      fetchVals();
-    }).catch(err => {
-      console.log(err)
-    });;
-    setNumber("");
-  }
-
-  // handle intialization and setup of database table, can reinitialize to wipe db
-  const reset = () => {
-    axios.post(`http://${url}:8000/reset`).then(res => {
-      console.log(res);
-      fetchVals();
-    }).catch(err => {
-      console.log(err)
-    });;
   }
 
   // tell app to fetch values from db on first load (if initialized)
@@ -90,4 +65,3 @@ export default function App() {
   )
 }
 
-  
